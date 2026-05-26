@@ -4,6 +4,7 @@
 
 **Run any command with retry, timeout, and JSON extraction for AI agents**
 
+![PyPI version](https://img.shields.io/pypi/v/exec-json?style=for-the-badge)
 ![AI-Ready](https://img.shields.io/badge/AI--Ready-brightgreen?style=for-the-badge)
 ![Zero Dependencies](https://img.shields.io/badge/Zero%20Dependencies-00599C?style=for-the-badge)
 ![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python)
