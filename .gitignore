@@ -1,0 +1,36 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+*.whl
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Virtual environment ---
+.env
+venv/
+.venv/
+env/
+
+# --- OS files ---
+*.log
+*.tmp
+*.bak
+
+# --- Project-specific ---
+# Ignore generated test artifacts
+/tmp/
+
+# --- Documentation builds (if any) ---
+/site/
+/_build/
