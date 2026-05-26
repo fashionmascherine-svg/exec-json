@@ -12,7 +12,7 @@ license = {text = "MIT"}
 authors = [
     {name = "exec-json contributors"},
 ]
-keywords = ["cli", "json", "extraction", "retry", "timeout", "ai-agent"]
+keywords = ["cli", "json", "extraction", "retry", "timeout", "ai-agent", "mcp"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -26,6 +26,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Utilities",
 ]
+dependencies = [
+    "mcp>=1.0.0",
+]
 
 [project.scripts]
 exec-json = "exec_json.__main__:main"
+exec-json-mcp = "server:main"

@@ -178,35 +178,84 @@ Every invocation returns a JSON object with the following structure:
 
 ## MCP Integration
 
-`exec-json` is designed to be registered as a **tool in the Model Context Protocol (MCP)**, making it natively available to Claude Desktop and compatible agents.
+`exec-json` ships with a **built-in MCP server** that exposes the CLI as a native MCP tool named `run_command`, ready for use with Claude Desktop, Cline, Cursor, and any MCP-compatible agent.
 
-### Claude Desktop configuration (`claude_desktop_config.json`)
+The server communicates exclusively via **stdio** (standard input/output) — no HTTP or cloud services are involved.
+
+### Quick start
+
+After installing the package, the MCP server is available as the `exec-json-mcp` command:
+
+```bash
+exec-json-mcp
+```
+
+Or directly with Python:
+
+```bash
+python -m server
+```
+
+### Exposed tool: `run_command`
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `cmd` | `str` | **required** | Command to execute. |
+| `retries` | `int` | `3` | Maximum retry attempts. |
+| `timeout` | `float` | `30.0` | Per-attempt timeout in seconds. |
+| `backoff` | `float` | `2.0` | Exponential backoff factor. |
+| `schema` | `str` | `None` | JSON schema file path or inline string. |
+| `shell` | `bool` | `False` | Use `shell=True`. |
+| `no_extract` | `bool` | `False` | Skip JSON extraction. |
+
+The tool returns the same structured JSON output as the CLI (see [Output schema](#output-schema)).
+
+### Claude Desktop configuration
+
+Add the following entry to your `claude_desktop_config.json`:
+
+**Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+**macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+**Linux:** `~/.config/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "exec-json": {
-      "command": "exec-json",
-      "args": ["--cmd", "{{command}}", "--retries", "3", "--timeout", "30"]
+      "command": "exec-json-mcp"
     }
   }
 }
 ```
 
-For tools that require shell features (pipes, redirects):
+If the command is not in your `PATH`, use the full Python invocation:
 
 ```json
 {
   "mcpServers": {
     "exec-json": {
-      "command": "exec-json",
-      "args": ["--cmd", "{{command}}", "--shell", "--retries", "2"]
+      "command": "python",
+      "args": ["-m", "server"]
     }
   }
 }
 ```
 
-> Replace `{{command}}` with the actual command to execute. The structured JSON output allows the agent to make informed decisions based on exit codes, extracted data, and schema validation results.
+### Verifying the server
+
+To test that the server starts correctly, run:
+
+```bash
+exec-json-mcp
+```
+
+The server will listen on stdio and wait for MCP requests. No output means it started successfully. You can also run the provided integration test:
+
+```bash
+python -m unittest tests.test_mcp_server -v
+```
 
 ---
 
