@@ -1,11 +1,22 @@
 # --- Python ---
 __pycache__/
 *.py[cod]
+*.pyo
 *.egg-info/
-dist/
-build/
 *.egg
 *.whl
+dist/
+build/
+*.manifest
+pip-wheel-metadata/
+
+# --- Testing & coverage ---
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage*
+.coverage/
+*.cover
 
 # --- IDE / Editor ---
 .vscode/
@@ -28,9 +39,12 @@ env/
 *.bak
 
 # --- Project-specific ---
-# Ignore generated test artifacts
+# Internal planning docs (not needed by end users)
+plans/
+
+# Generated test artifacts
 /tmp/
 
-# --- Documentation builds (if any) ---
+# Documentation builds (if any)
 /site/
 /_build/
